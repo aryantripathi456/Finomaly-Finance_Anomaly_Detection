@@ -5,9 +5,9 @@ from datetime import datetime
 import json
 import uuid
 
-st.set_page_config(page_title="Finance Anomaly Detector", page_icon="💸", layout="wide")
+st.set_page_config(page_title="Finance Anomaly Detector", page_icon="", layout="wide")
 
-st.title("💸 Finance Anomaly Detector")
+st.title("Finance Anomaly Detector")
 st.markdown("Detect anomalous personal finance transactions using Isolation Forest and SHAP explainability.")
 
 API_URL = "http://localhost:8000/api/v1/predict"
