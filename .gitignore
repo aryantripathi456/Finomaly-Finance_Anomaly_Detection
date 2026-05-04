@@ -49,12 +49,4 @@ coverage.xml
 # Compiled Python files
 *.pyc
 
-# macOS
-.DS_Store
 
-# Model and data artifacts (adjust if you intend to track these)
-models/*.joblib
-data/*.csv
-
-# Git LFS pointer files (if using LFS)
-*.lfs
