@@ -10,7 +10,7 @@ st.set_page_config(page_title="Finance Anomaly Detector", page_icon="", layout="
 st.title("Finance Anomaly Detector")
 st.markdown("Detect anomalous personal finance transactions using Isolation Forest and SHAP explainability.")
 
-API_URL = "http://localhost:8000/api/v1/predict"
+API_URL = st.secrets["API_URL"]
 
 def predict_transaction(transactions_df):
     try:
