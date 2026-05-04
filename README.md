@@ -9,6 +9,7 @@ This project trains an unsupervised anomaly detector on transaction data, expose
 - [Overview](#overview)
 - [Features](#features)
 - [Project Structure](#project-structure)
+- [Architecture Diagram](#architecture-diagram)
 - [Architecture](#architecture)
 - [Tech Stack](#tech-stack)
 - [Quickstart](#quickstart)
@@ -76,6 +77,43 @@ finance_anomaly_detector/
 ├── requirements.txt
 ├── Dockerfile
 └── README.md
+```
+
+## Architecture Diagram
+
+```mermaid
+flowchart LR
+	User[User] --> UI[Streamlit Frontend<br/>src/frontend/app.py]
+	UI --> API[FastAPI App<br/>src/api/main.py]
+	API --> Routes[API Routes<br/>src/api/routes.py]
+
+	Routes --> Predict[AnomalyPredictor<br/>src/model/predict.py]
+	Routes --> Explain[Explainer<br/>src/model/explain.py]
+	Routes --> Train[Training Pipeline<br/>src/model/train.py]
+
+	Train --> LoadData[Data Loader<br/>src/data/loader.py]
+	LoadData --> Prep[Preprocessing Pipeline<br/>src/data/preprocessor.py]
+	Prep --> Model[IsolationForest Model]
+	Model --> Artifacts[Saved Artifacts<br/>models/*.joblib]
+	Artifacts --> Predict
+	Artifacts --> Explain
+
+	Synthetic[Data Generator<br/>src/data/generate_synthetic_data.py] --> Dataset[data/transactions.csv]
+	Dataset --> LoadData
+
+	Config[src/utils/config.py] --> API
+	Config --> Predict
+	Config --> Explain
+	Config --> Train
+	Logger[src/utils/logger.py] --> API
+	Logger --> Predict
+	Logger --> Explain
+	Logger --> Train
+
+	Predict --> Response[Predictions + Scores]
+	Explain --> SHAP[SHAP Explanations]
+	Response --> UI
+	SHAP --> UI
 ```
 
 ## Architecture
